@@ -42,6 +42,7 @@ public class ArticleController {
         article.setUpdateDate(LocalDateTime.now());
         article.setTitle(title);
         article.setBody(body);
+        article.setUserId(1L);
 
         articleRepository.save(article);
 
