@@ -1,25 +1,39 @@
 package com.mysite.sbb.Answer.controller;
 
 
-import com.mysite.sbb.Answer.dao.AnswerRepository;
-import com.mysite.sbb.Answer.domain.Answer;
+import com.mysite.sbb.Answer.form.AnswerForm;
+import com.mysite.sbb.Answer.service.AnswerService;
+import com.mysite.sbb.Question.domain.Question;
+import com.mysite.sbb.Question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/answer")
 public class AnswerController {
 
     @Autowired
-    private AnswerRepository answerRepository;
+    private AnswerService answerService;
 
-    @RequestMapping("/list")
-    @ResponseBody
-    public List<Answer> showAnswer(){
-        return answerRepository.findAll();
+    // 답변을 하려면 질문에 대한 데이터가 필요하기때문에 사용한다
+    @Autowired
+    private QuestionService questionService;
+
+    @PostMapping("/create/{id}")
+    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerform, BindingResult bindingResult){
+        Question question = this.questionService.getQuestion(id);
+        if(bindingResult.hasErrors()){
+            model.addAttribute("question", question);
+            return "question_detail";
+        }
+        this.answerService.create(question, answerform.getContent());
+        return String.format("redirect:/question/detail/%s", id);
     }
 }

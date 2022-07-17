@@ -9,4 +9,9 @@ public class MainController {
     @RequestMapping("/sbb")
     @ResponseBody
     public String index(){ return "index2";}
+
+    @RequestMapping("/")
+    public String root(){
+        return "redirect:/question/list";
+    }
 }
