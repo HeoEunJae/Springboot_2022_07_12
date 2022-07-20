@@ -29,7 +29,10 @@ public class QuestionService {
     public Question getQuestion(Integer id){
         Optional<Question> question = this.questionRepository.findById(id);
         if(question.isPresent()){
-            return question.get();
+            Question question1 = question.get();
+            question1.setViewcnt(question1.getViewcnt() + 1);
+            this.questionRepository.save(question1);
+            return question1;
         } else {
             throw new DataFormatException("question not found");
         }
