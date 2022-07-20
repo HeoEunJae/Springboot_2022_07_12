@@ -29,6 +29,7 @@ public class AnswerController {
     @PostMapping("/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerform, BindingResult bindingResult){
         Question question = this.questionService.getQuestion(id);
+        questionService.Viewcount(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("question", question);
             return "question_detail";

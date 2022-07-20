@@ -4,7 +4,7 @@ import com.mysite.sbb.Answer.form.AnswerForm;
 import com.mysite.sbb.Question.domain.Question;
 import com.mysite.sbb.Question.form.QuestionForm;
 import com.mysite.sbb.Question.service.QuestionService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,9 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/question")
-@AllArgsConstructor
 public class QuestionController {
-
-    private final QuestionService questionService;
+    @Autowired
+    private  QuestionService questionService;
 
     @RequestMapping("/list")
     public String showQuestions(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
@@ -30,6 +29,7 @@ public class QuestionController {
     @RequestMapping("/detail/{id}")
     public String showQuestion(Model model, @PathVariable("id") Integer id, AnswerForm answerForm){
         Question question = this.questionService.getQuestion(id);
+        questionService.Viewcount(id);
         model.addAttribute("question", question);
         return "question_detail";
     }

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class QuestionService {
 
     @Autowired
-    public QuestionRepository questionRepository;
+    private QuestionRepository questionRepository;
 
     // 리포지터리에있는것을 가져오겠다
     public List<Question> getlist(){
@@ -29,10 +29,7 @@ public class QuestionService {
     public Question getQuestion(Integer id){
         Optional<Question> question = this.questionRepository.findById(id);
         if(question.isPresent()){
-            Question question1 = question.get();
-            question1.setViewcnt(question1.getViewcnt() + 1);
-            this.questionRepository.save(question1);
-            return question1;
+            return question.get();
         } else {
             throw new DataFormatException("question not found");
         }
@@ -50,6 +47,12 @@ public class QuestionService {
         question.setSubject(subject);
         question.setContent(content);
         question.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(question);
+    }
+
+    public void Viewcount(Integer id){
+        Question question = getQuestion(id);
+        question.setViewcnt(question.getViewcnt() + 1);
         this.questionRepository.save(question);
     }
 }
