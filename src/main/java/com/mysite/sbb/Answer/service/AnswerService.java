@@ -23,10 +23,10 @@ public class AnswerService {
         answer.setContent(content);
         answer.setQuestion(question);
         answer.setCreateDate(LocalDateTime.now());
-        answer.setReplyLike(false);
-        question.setViewcnt(question.getViewcnt() - 2);
+//        answer.setReplyLike(false);
+        question.setViewcnt(question.getViewcnt() - 1);
         this.answerRepository.save(answer);
-        this.questionRepository.save(question);
+//        this.questionRepository.save(question);
     }
 
     public void setLike(Integer answerId) {

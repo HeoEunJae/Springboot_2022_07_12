@@ -55,4 +55,10 @@ public class QuestionService {
         question.setViewcnt(question.getViewcnt() + 1);
         this.questionRepository.save(question);
     }
+
+//    public void likecnt(Integer id){
+//        Question question = getQuestion(id);
+//        question.setViewcnt(question.getViewcnt() - 1);
+//        this.questionRepository.save(question);
+//    }
 }
