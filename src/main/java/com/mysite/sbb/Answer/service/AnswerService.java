@@ -4,6 +4,7 @@ import com.mysite.sbb.Answer.dao.AnswerRepository;
 import com.mysite.sbb.Answer.domain.Answer;
 import com.mysite.sbb.Question.dao.QuestionRepository;
 import com.mysite.sbb.Question.domain.Question;
+import com.mysite.sbb.User.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,12 @@ public class AnswerService {
     private QuestionRepository questionRepository;
 
     // 답변을 만들려면 질문이랑 내용을 가져와서 답변을 해줘야함
-    public void create(Question question, String content){
+    public void create(Question question, String content, User author){
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setQuestion(question);
         answer.setCreateDate(LocalDateTime.now());
+        answer.setAuthor(author);
 //        answer.setReplyLike(false);
         question.setViewcnt(question.getViewcnt() - 1);
         this.answerRepository.save(answer);

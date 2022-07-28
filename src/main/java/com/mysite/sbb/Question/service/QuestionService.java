@@ -2,7 +2,8 @@ package com.mysite.sbb.Question.service;
 
 import com.mysite.sbb.Question.dao.QuestionRepository;
 import com.mysite.sbb.Question.domain.Question;
-import com.mysite.sbb.uitl.DataFormatException;
+import com.mysite.sbb.User.domain.User;
+import com.mysite.sbb.uitl.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class QuestionService {
         if(question.isPresent()){
             return question.get();
         } else {
-            throw new DataFormatException("question not found");
+            throw new DataNotFoundException("question not found");
         }
     }
 
@@ -42,10 +43,11 @@ public class QuestionService {
         return this.questionRepository.findAll(pageable);
     }
 
-    public void create(String subject, String content){
+    public void create(String subject, String content, User user){
         Question question = new Question();
         question.setSubject(subject);
         question.setContent(content);
+        question.setAuthor(user);
         question.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(question);
     }

@@ -3,6 +3,7 @@ package com.mysite.sbb.Question.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mysite.sbb.Answer.domain.Answer;
+import com.mysite.sbb.User.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +30,9 @@ public class Question {
 
     private int Viewcnt;
 
+    @ManyToOne
+    private User author;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
-
 }

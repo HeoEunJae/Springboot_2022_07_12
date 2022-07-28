@@ -3,6 +3,7 @@ package com.mysite.sbb.Answer.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mysite.sbb.Question.domain.Question;
+import com.mysite.sbb.User.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,9 @@ public class Answer {
     private Boolean replyLike;
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private User author;
 
 }
 @Converter

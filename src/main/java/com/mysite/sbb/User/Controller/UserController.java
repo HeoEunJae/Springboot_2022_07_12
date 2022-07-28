@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -55,5 +56,16 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login_form";
+    }
+
+    @RequestMapping("/loginSuccess")
+    @ResponseBody
+    public String loginSuccess(){
+        return """
+                <script>
+                alert("로그인 완료");
+                location.replace("/");
+                </script>
+                """;
     }
 }
