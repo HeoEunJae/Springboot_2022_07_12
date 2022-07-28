@@ -58,6 +58,17 @@ public class QuestionService {
         this.questionRepository.save(question);
     }
 
+    public void modify(Question question, String subject, String content) {
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        this.questionRepository.save(question);
+    }
+
+    public void delete(Question question) {
+        this.questionRepository.delete(question);
+    }
+
 //    public void likecnt(Integer id){
 //        Question question = getQuestion(id);
 //        question.setViewcnt(question.getViewcnt() - 1);

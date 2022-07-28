@@ -30,6 +30,8 @@ public class Question {
 
     private int Viewcnt;
 
+    private LocalDateTime modifyDate;
+
     @ManyToOne
     private User author;
 

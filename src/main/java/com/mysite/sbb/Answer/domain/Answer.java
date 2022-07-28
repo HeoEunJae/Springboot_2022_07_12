@@ -31,6 +31,8 @@ public class Answer {
     @ManyToOne
     private User author;
 
+    private LocalDateTime modifyDate;
+
 }
 @Converter
 class BooleanToYNConverter implements AttributeConverter<Boolean, String>{
